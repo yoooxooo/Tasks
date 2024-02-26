@@ -1,6 +1,8 @@
-package autoparkProject.vehicles;
+package autoparkProject.classes;
 
 public class VehicleType {
+
+    private int carID;
 
     private String typeName;
 
@@ -24,6 +26,14 @@ public class VehicleType {
         str.append(typeName).append(",");
         str.append("\"").append(taxCoefficient).append("\"");
         return str.toString();
+    }
+
+    public int getCarID() {
+        return carID;
+    }
+
+    public void setCarID(int carID) {
+        this.carID = carID;
     }
 
     public String getTypeName() {
