@@ -1,11 +1,11 @@
-package autoparkProject.utils;
+package autoparkProject.utils.mechanics;
 
 import autoparkProject.engines.AbstractEngine;
 import autoparkProject.engines.CombustionEngine;
 import autoparkProject.engines.ElectricalEngine;
 import autoparkProject.engines.api.IStartable;
 import autoparkProject.enums.VehicleColor;
-import autoparkProject.vehicles.VehicleType;
+import autoparkProject.classes.VehicleType;
 
 import java.util.regex.Pattern;
 

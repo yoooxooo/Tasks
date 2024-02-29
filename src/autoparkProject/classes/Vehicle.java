@@ -1,14 +1,19 @@
-package autoparkProject.vehicles;
+package autoparkProject.classes;
 
 import autoparkProject.engines.AbstractEngine;
 import autoparkProject.engines.api.IStartable;
 import autoparkProject.enums.VehicleColor;
 import autoparkProject.exceptions.NotVehicleException;
-import autoparkProject.utils.TechnicalSpecialist;
+import autoparkProject.utils.mechanics.TechnicalSpecialist;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Vehicle implements Comparable<Vehicle>{
+
+    private int carID;
+
+    private List<Rent> carRentList;
 
     private VehicleType vehicleType;
 
@@ -32,7 +37,7 @@ public class Vehicle implements Comparable<Vehicle>{
     }
 
     public Vehicle(VehicleType vehicleType, IStartable engine, String model, String registrationNumber, int mass,
-                   int releaseYear, int trackedKM, VehicleColor color, int tankVolume) throws NotVehicleException {
+                   int releaseYear, int trackedKM, VehicleColor color) throws NotVehicleException {
         this.setVehicleType(vehicleType);
         this.setEngine(engine);
         this.setModel(model);
@@ -41,7 +46,32 @@ public class Vehicle implements Comparable<Vehicle>{
         this.setReleaseYear(releaseYear);
         this.setTrackedKM(trackedKM);
         this.setColor(color);
-        this.setTankVolume(tankVolume);
+    }
+
+    public Vehicle(int carID, List<Rent> carRentList, VehicleType vehicleType, IStartable engine, String model,
+                   String registrationNumber, int mass, int releaseYear, int trackedKM, VehicleColor color) throws NotVehicleException {
+        this.setCarID(carID);
+        this.setCarRentList(carRentList);
+        this.setVehicleType(vehicleType);
+        this.setEngine(engine);
+        this.setModel(model);
+        this.setRegistrationNumber(registrationNumber);
+        this.setMass(mass);
+        this.setReleaseYear(releaseYear);
+        this.setTrackedKM(trackedKM);
+        this.setColor(color);
+    }
+
+    public double getTotalIncome() {
+        double totalIncome = 0;
+        for (Rent rent: carRentList) {
+            totalIncome += rent.getRentCost();
+        }
+        return totalIncome;
+    }
+
+    public double getTotalProfit() {
+        return getTotalIncome() - getCalcTaxPerMonth();
     }
 
     public double getCalcTaxPerMonth() {
@@ -57,8 +87,7 @@ public class Vehicle implements Comparable<Vehicle>{
         str.append(mass).append(",");
         str.append(releaseYear).append(",");
         str.append(trackedKM).append(",");
-        str.append(color).append(",");
-        str.append(tankVolume);
+        str.append(color);
         return str.toString();
     }
 
@@ -86,6 +115,22 @@ public class Vehicle implements Comparable<Vehicle>{
             }
         }
         return 0;
+    }
+
+    public int getCarID() {
+        return carID;
+    }
+
+    public void setCarID(int carID) {
+        this.carID = carID;
+    }
+
+    public List<Rent> getCarRentList() {
+        return carRentList;
+    }
+
+    public void setCarRentList(List<Rent> carRentList) {
+        this.carRentList = carRentList;
     }
 
     public VehicleType getVehicleType() {
